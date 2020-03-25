@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+
+
+
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title> Rock Paper Scisor UI </title>
+
+        </head>
+    <style>
+
+        h1 {
+            text-align: center;
+           
+        }
+        .choix {
+            display:flex;
+            flex-direction: row;
+            justify-content: center;
+        }
+        #rock {
+            border: black;
+            border-style: dotted;
+            border-width: 10px;
+            margin: 15px;
+
+        }
+        #paper {
+            border: black;
+            border-style: dotted;
+            border-width: 10px;
+            margin: 15px;
+        }
+        #scissor{
+            border: black;
+            border-style: dotted;
+            border-width: 10px;
+            margin: 15px;
+        }
+
+        .rez{
+            display:flex;
+            height: 100px;
+            justify-content: center;
+            flex-direction:column;
+            align-items: center;
+        }
+
+        #resultat {
+            text-align: center;
+            justify-self: center;
+        }
+        input[type="button"]{ 
+            justify-self: center;
+            background-color: rgb(233, 231, 231);
+            border: 2px solid grey;
+            padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  transition-duration: 0.4s;
+margin: 15px;
+
+        }
+        input[type="button"]:hover {
+            background-color: white;
+            
+        }
+        #rock:hover {
+            border: rgb(226, 31, 184);
+            border-style: dotted;
+            border-width: 10px;
+            margin: 15px;
+        }
+        #paper:hover {
+            border: rgb(226, 31, 184);
+            border-style: dotted;
+            border-width: 10px;
+            margin: 15px;
+        }
+        #scissor:hover {
+            border: rgb(226, 31, 184);
+            border-style: dotted;
+            border-width: 10px;
+            margin: 15px;
+        }
+
+.containercpu {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+.containerplayer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+.greenborder {
+   padding: 1rem;
+   position: relative;
+    margin: 15px;
+    border-radius: 30%;
+	background: linear-gradient( to right, #f9f047, #0fd850);
+}
+
+.redborder {
+    padding: 1rem;
+   position: relative;
+    margin: 15px;
+    border-radius: 30%;
+    background: linear-gradient(to bottom left, #f83600, #f9d423);
+    }
+
+
+   </style>
+   
+
+    <body>
+        <h1> ROCK PAPER SCISSOR </H1>
+<div class="choix">
+    <div id="rock">
+        <input type="image" src="images/rock.jpg" alt="Rock" width="80" height="80">    
+    </div>
+    <div id="paper"> 
+        <input type="image" src="images/paper.png" alt="Paper" width="80" height="80"> 
+    </div>
+    <div id="scissor">
+        <input type="image" src="images/scissor.jpeg" alt="Scissor" width="80" height="80">     
+    </div>
+
+
+</div>
+<hr>
+
+<div class ="rez">
+    <div id="resultat"></div>
+<div id="restart">
+    <input type="button" value="Restart Game">
+</div>
+</div>
+
+<hr>
+<div class="containerplayer">
+    <div class="prep" id="firstx"> </div>
+    <div class="prep" id="secondx" > </div>
+    <div class="prep" id="thirdx" > </div>
+    <div class="prep" id="fourthx" > </div>
+    <div class="prep" id="fifthx" > </div>
+</div>
+
+<div class="containercpu">
+    <div class="prep" id="first"> </div>
+    <div class="prep" id="second" > </div>
+    <div class="prep" id="third" > </div>
+    <div class="prep" id="fourth" > </div>
+    <div class="prep" id="fifth" > </div>
+
+</div>
+
+
+<script> 
+
+const rockimg = 'images/rock.jpg';
+const paperimg = 'images/paper.png';
+const scissorimg = 'images/scissor.jpeg';
+
+var choicearray = [
+    'rock',
+    'paper',
+    'scissor'
+];
+
+var roundarray = ['first', 'second', 'third', 'fourth', 'fifth' ];
+
+var winlose;
+var computerSelection;
+var score = 0;
+var scoreCPU = 0;
+var i;
+var playerSelection;
+var gamenumb = 0;
+
+let computerPlay = () => {
+    var randomNumber = Math.floor(Math.random() * choicearray.length);
+    return choicearray[randomNumber];
+
+}
+function playRound(playerSelection, computerSelection) {
+    switch(playerSelection) {
+    case 'rock':
+    if (computerSelection == 'rock') { 
+        winlose = 0; 
+    } else if (computerSelection == 'paper') { winlose = '2'; } else { winlose = '1';} 
+    if (winlose == '0') { return "tie"; } else if (winlose == '1') { ++score ; return "win: rock beats scissors" ; } else { ++scoreCPU; return "LOSER:paper beats rock" ; }
+    break;
+    case 'paper':
+        if (computerSelection == 'rock') { winlose = 1;} else if (computerSelection == 'paper') { winlose = 0;} else { winlose = 2;}
+        if (winlose == '0') { return "tie"; } else if (winlose == '1') { ++score ; return "win: paper beats rock" ; } else { ++scoreCPU; return "LOSER: scissors beat paper" ; }
+        break;
+    case 'scissor':
+    if (computerSelection == 'rock') { winlose = 2;} else if (computerSelection == 'paper') { winlose = 1;} else { winlose = 0;}
+    if (winlose == '0') { return "tie"; } else if (winlose == '1') { ++score ; return "win: scissors beat paper" ; } else { ++scoreCPU; return "LOSER: rock beats scissors" ; }
+    break;
+    
+    
+} }
+
+function gameNl(choicePlayer) {
+    if (gamenumb > 4) {
+        console.log('restart game first')
+    }
+    else {
+        console.log(choicePlayer);
+        console.log(gamenumb);
+        computerSelection = computerPlay();
+        playRound(choicePlayer, computerSelection);
+        addImgPlayer(choicePlayer, winlose);
+        addImg(winlose);
+        gamenumb++;
+        if (gamenumb == 5){ results(); }
+       // playerSelection = choicePlayer;
+        //console.log(gamenumb);
+        //computerSelection = computerPlay();
+        //console.log((gamenumb + 1) + playRound(playerSelection, computerSelection));
+        //addImgPlayer(playerSelection, winlose);
+        //addImg(winlose);
+        //gamenumb = gamenumb + 1;
+
+    }
+   
+}
+// function game() {
+//var gameNumb = 5;
+// for (i = 0; i < gameNumb; i++) {
+   // let playerSelection = prompt("Enter rock, paper or scissor","").toLowerCase();
+    //if (choicearray.indexOf( playerSelection ) == -1) {
+      //  alert( "Not a valid choice");
+       // i = --i; continue; }
+       // else {
+         //   computerSelection = computerPlay()
+            
+          //  console.log((i + 1) + playRound(playerSelection, computerSelection));
+           // addImgPlayer(playerSelection, winlose);
+          //  addImg(winlose);
+            //}
+            
+
+//} 
+
+// }
+var playerSelection;
+
+document.getElementById("rock").addEventListener("click", function() { gameNl('rock')});
+document.getElementById("paper").addEventListener("click", function() { gameNl('paper')});
+document.getElementById("scissor").addEventListener("click", function() { gameNl('scissor')});
+
+document.getElementById("restart").addEventListener("click", restartGame);
+function results() {
+    var div = document.getElementById('resultat');
+    if (score == scoreCPU) { 
+        div.innerHTML += 'You have tied over 5 games, what a magician';
+    console.log(" you have tied over 5 games, what a magician ") ;
+    }
+    else if (score > scoreCPU) { 
+        console.log(" you have won "+ score + " games and the computer has won " + scoreCPU); 
+        div.innerHTML += " you have won "+ score + " games and the computer has won " + scoreCPU ;
+        }
+        else { console.log("you have lost with a score of" + score + " the computer has won with " + scoreCPU );
+        div.innerHTML += 'you have lost with a score of ' + score + ' the computer has won with ' +scoreCPU ;
+         }
+
+}
+
+
+function addImg(winlose) { 
+            var img = document.createElement('img'); 
+            var photo;
+            var laclass;
+            if (computerSelection == 'rock') { photo = rockimg; }
+            else if (computerSelection == 'paper') { photo = paperimg; } else { photo = scissorimg; }
+
+            if (winlose == 1) { laclass = 'redborder'; } else if (winlose == 2) { laclass = 'greenborder'; } else if (winlose == 0) { laclass = 'redborder'; }
+
+
+            img.src = photo; 
+            img.style.width = "80px";
+            img.style.height = "80px";
+            img.className = laclass;
+            
+
+            
+            document.getElementById(roundarray[gamenumb]).appendChild(img); 
+            
+
+           
+        }  
+        function addImgPlayer(choice, winlose) { 
+            var img = document.createElement('img'); 
+            var photo;
+            var laclass;
+            if (choice == 'rock') { photo = rockimg; }
+            else if (choice == 'paper') { photo = paperimg; } else { photo = scissorimg; }
+
+            if (winlose == 1) { laclass = 'greenborder'; } else if (winlose == 2) { laclass = 'redborder'; } else if (winlose == 0) { laclass = 'redborder'; }
+
+
+            img.src = photo; 
+            img.style.width = "80px";
+            img.style.height = "80px";
+            img.className = laclass;
+            
+            document.getElementById(roundarray[gamenumb] + 'x').appendChild(img); 
+
+           
+        }  
+
+function restartGame() {
+gamenumb = 0;
+    divs = document.getElementsByClassName( 'prep' );
+
+[].slice.call( divs ).forEach(function ( div ) {
+    div.innerHTML = "";
+
+
+}); }
+
+       
+
+</script>
+
+</body>
+</html>
